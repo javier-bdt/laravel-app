@@ -9,15 +9,22 @@ class JobController extends Controller
 {
     public function index()
     {
-        return view('home');
-    }
-
-    public function getJobs()
-    {
         $jobs = Job::with('employer')->latest()->paginate(10);
         return view('jobs.index', [
             'jobs' => $jobs
         ]);
+    }
+
+    public function showJob(Job $job)
+    {
+        // its same as below
+        return view('jobs.show', ['job' => $job]);
+        // its same as below
+        /*
+        return view('jobs.show', [
+            'job' => Job::find($id)
+        ]);
+        */
     }
 
     public function createJob()
@@ -25,14 +32,10 @@ class JobController extends Controller
         return view('jobs.create');
     }
 
-    public function showJob($id)
-    {
-        return view('jobs.show', [
-            'job' => Job::find($id)
-        ]);
-    }
     public function storeJob(Request $request)
     {
+        // first we need to do user authentication
+
         $request->validate([
             'title' => ['required', 'min:3', 'max:100'],
             'salary' => ['required']
@@ -46,25 +49,18 @@ class JobController extends Controller
         return redirect('/jobs');
     }
 
-    public function editJob($id)
+    public function editJob(Job $job)
     {
-        $job = Job::find($id);
-        if (!$job) {
-            return abort(404, 'Job not found');
-        }
-        return view('jobs.edit', [
-            'job' => $job
-        ]);
+        return view('jobs.edit', ['job' => $job]);
     }
 
-    public function updateJob(Request $request, $id)
+    public function updateJob(Request $request, Job $job)
     {
         $request->validate([
             'title' => ['required', 'min:3', 'max:100'],
             'salary' => ['required']
         ]);
 
-        $job = Job::findOrFail($id);
         $job->update([
             'title' => $request->title,
             'salary' => $request->salary,
@@ -72,9 +68,9 @@ class JobController extends Controller
         return redirect('/jobs/' . $job->id);
     }
 
-    public function deleteJob($id)
+    public function destroyJob(Job $job)
     {
-        Job::destroy($id);
+        Job::destroy($job);
         return redirect('/jobs');
     }
 }
