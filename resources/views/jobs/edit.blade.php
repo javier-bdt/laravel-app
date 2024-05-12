@@ -42,13 +42,13 @@
 
         <div class="mt-6 flex items-center justify-between gap-x-6">
             <div class="flex items-center">
-                <x-button form="delete-form" class="bg-red-700 hover:text-red-700 hover:bg-white">
+                <x-form-button form="delete-form" class="bg-red-700 hover:text-red-700 hover:bg-white">
                     Delete Job
-                </x-button>
+                </x-form-button>
             </div>
             <div class="flex items-center gap-6">
                 <a href="/jobs/{{ $job->id }}" class="font-semibold mb-3 text-gray-900">Cancel</a>
-                <x-button type="submit">Update</x-button>
+                <x-form-button type="submit">Update</x-form-button>
             </div>
         </div>
     </form>
