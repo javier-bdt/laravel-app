@@ -14,8 +14,7 @@ class JobController extends Controller
             'jobs' => $jobs
         ]);
     }
-
-    public function showJob(Job $job)
+    public function show(Job $job)
     {
         // its same as below
         return view('jobs.show', ['job' => $job]);
@@ -26,21 +25,15 @@ class JobController extends Controller
         ]);
         */
     }
-
-    public function createJob()
+    public function create()
     {
         return view('jobs.create');
     }
-
-    public function storeJob(Request $request)
+    public function store(Request $request)
     {
         // first we need to do user authentication
 
-        $request->validate([
-            'title' => ['required', 'min:3', 'max:100'],
-            'salary' => ['required']
-        ]);
-
+        $this->validateJob();
         $job = Job::create([
             'title' => $request->title,
             'salary' => $request->salary,
@@ -48,29 +41,30 @@ class JobController extends Controller
         ]);
         return redirect('/jobs');
     }
-
-    public function editJob(Job $job)
+    public function edit(Job $job)
     {
         return view('jobs.edit', ['job' => $job]);
     }
-
-    public function updateJob(Request $request, Job $job)
+    public function update(Request $request, Job $job)
     {
-        $request->validate([
-            'title' => ['required', 'min:3', 'max:100'],
-            'salary' => ['required']
-        ]);
-
+        $this->validateJob();
         $job->update([
             'title' => $request->title,
             'salary' => $request->salary,
         ]);
         return redirect('/jobs/' . $job->id);
     }
-
-    public function destroyJob(Job $job)
+    public function destroy(Job $job)
     {
-        Job::destroy($job);
+        $job->delete();
         return redirect('/jobs');
+    }
+
+    private function validateJob()
+    {
+        return request()->validate([
+            'title' => ['required', 'min:3', 'max:100'],
+            'salary' => ['required', 'min:5']
+        ]);
     }
 }

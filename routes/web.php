@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 // its same as below
 Route::view('/', 'home');
 Route::view('/contact', 'contact');
-Route::resource('jobs', JobController::class);
+Route::resource('jobs', JobController::class, []);
 
 /* its same as below
 Route::view('/', 'home');
@@ -16,16 +16,15 @@ Route::get("/", function () {
 });
 
  group routes of JobController
-
 Route::controller(JobController::class)->group(
     function () {
         Route::get('/jobs', 'index');
-        Route::get('/jobs/create', 'createJob');
-        Route::get('/jobs/{job}', 'showJob');
-        Route::post('/jobs', 'storeJob');
-        Route::get('/jobs/{job}/edit', 'editJob');
-        Route::patch('/jobs/{job}', 'updateJob');
-        Route::delete('/jobs/{job}', 'destroyJob');
+        Route::get('/jobs/create', 'create');
+        Route::get('/jobs/{job}', 'show');
+        Route::post('/jobs', 'store');
+        Route::get('/jobs/{job}/edit', 'edit');
+        Route::patch('/jobs/{job}', 'update');
+        Route::delete('/jobs/{job}', 'destroy');
     }
 );
 

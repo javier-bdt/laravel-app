@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="col-span-full">
-                        <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Salary</label>
+                        <label for="salary" class="block text-sm font-medium leading-6 text-gray-900">Salary</label>
                         <div class="mt-2">
                             <input type="text" name="salary" id="salary"
                                 class="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
