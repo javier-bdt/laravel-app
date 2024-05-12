@@ -1,5 +1,7 @@
-<div
-    class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md">
+<div class="relative">
     <input
-        {{ $attributes->merge(['class' => 'block flex-1  bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6']) }}>
+        {{ $attributes->merge([
+            'class' => 'text-md block px-3 py-2 rounded-lg w-full bg-white border-2 border-gray-300 placeholder-gray-600 
+            shadow-mdfocus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none',
+        ]) }}>
 </div>

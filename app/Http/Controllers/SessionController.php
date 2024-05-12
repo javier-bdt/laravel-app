@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class SessionController extends Controller
@@ -15,15 +16,24 @@ class SessionController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $attributes = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        if (auth()->attempt($request->only('email', 'password'))) {
-            return redirect('/');
+        if (!auth()->attempt($attributes)) {
+            throw ValidationException::withMessages(
+                ['email' => 'Algo no esta bien con las credenciales proporcionadas.']
+            );            // regenerate session id
         }
+        $request->session()->regenerate();
+        return redirect('/');
+    }
 
-        return back()->with('status', 'Invalid login details');
+    public function destroy()
+    {
+        auth()->logout();
+
+        return redirect('/');
     }
 }
