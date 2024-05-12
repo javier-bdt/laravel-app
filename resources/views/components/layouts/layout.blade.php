@@ -27,21 +27,23 @@
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                                 <x-nav href="/" title="Go to Home" :active="request()->is('/')">Home</x-nav>
                                 <x-nav href="/jobs" title="Go to jobs" :active="request()->is('jobs')">jobs</x-nav>
-                                <x-nav href="/contact" title="Go to Contact" :active="request()->is('contact')">Contact</x-nav>
+                                <x-nav href="/contact" title="Go to Contact" :active="request()->is('contact')">Contact
+                                </x-nav>
                             </div>
                         </div>
                     </div>
                     <div class="hidden md:block">
                         <div class="ml-4 flex items-center md:ml-6">
                             @guest
-                                <x-nav href="/login" title="Log In" :active="request()->is('login')">Log In</x-nav>
-                                <x-nav href="/register" title="Register" :active="request()->is('register')">Register</x-nav>
+                            <x-nav href="/login" title="Log In" :active="request()->is('login')">Log In</x-nav>
+                            <x-nav href="/register" title="Register" :active="request()->is('register')">Register
+                            </x-nav>
                             @endguest
                             @auth
-                                <form method="POST" action="/logout">
-                                    @csrf
-                                    <x-form-button type="submit">Log Out</x-form-button>
-                                </form>
+                            <form method="POST" action="/logout">
+                                @csrf
+                                <x-form-button type="submit">Log Out</x-form-button>
+                            </form>
                             @endauth
                         </div>
                     </div>
@@ -107,9 +109,12 @@
         <header class="bg-white shadow">
             <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 sm:flex sm:justify-between">
                 <h1 class="text-3xl font-bold tracking-tight text-gray-900 mb-3">{{ $heading }}</h1>
+                @auth
                 <x-a-button href="/jobs/create">Create New Job</x-a-button>
+                @endauth
             </div>
         </header>
+
         <main>
             <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
                 {{ $slot }}
