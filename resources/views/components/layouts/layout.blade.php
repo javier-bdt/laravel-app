@@ -8,7 +8,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
 </head>
 
 <body class="h-full">
@@ -35,15 +35,15 @@
                     <div class="hidden md:block">
                         <div class="ml-4 flex items-center md:ml-6">
                             @guest
-                            <x-nav href="/login" title="Log In" :active="request()->is('login')">Log In</x-nav>
-                            <x-nav href="/register" title="Register" :active="request()->is('register')">Register
-                            </x-nav>
+                                <x-nav href="/login" title="Log In" :active="request()->is('login')">Log In</x-nav>
+                                <x-nav href="/register" title="Register" :active="request()->is('register')">Register
+                                </x-nav>
                             @endguest
                             @auth
-                            <form method="POST" action="/logout">
-                                @csrf
-                                <x-form-button type="submit">Log Out</x-form-button>
-                            </form>
+                                <form method="POST" action="/logout">
+                                    @csrf
+                                    <x-form-button type="submit">Log Out</x-form-button>
+                                </form>
                             @endauth
                         </div>
                     </div>
@@ -110,7 +110,7 @@
             <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 sm:flex sm:justify-between">
                 <h1 class="text-3xl font-bold tracking-tight text-gray-900 mb-3">{{ $heading }}</h1>
                 @auth
-                <x-a-button href="/jobs/create">Create New Job</x-a-button>
+                    <x-a-button href="/jobs/create">Create New Job</x-a-button>
                 @endauth
             </div>
         </header>
